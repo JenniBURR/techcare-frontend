@@ -24,3 +24,38 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    var sidebarToggle = document.getElementById('sidebarToggle');
+    var layoutSidenavContent = document.getElementById('layoutSidenav_content');
+
+    sidebarToggle.addEventListener('click', function () {
+        var isSidebarCollapsed = layoutSidenavContent.classList.toggle('sidebar-collapsed');
+
+        // If the sidebar is collapsed, adjust the left margin of the content
+        if (isSidebarCollapsed) {
+            layoutSidenavContent.style.marginLeft = '60px'; // Adjust the value based on your sidebar width
+        } else {
+            layoutSidenavContent.style.marginLeft = '240px'; // Adjust the value based on your sidebar width
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    var layoutSidenav = document.getElementById('layoutSidenav');
+    var layoutSidenavContent = document.getElementById('layoutSidenav_content');
+    var welcomeMessage = document.getElementById('welcomeMessage');
+
+    var isSidebarCollapsed = window.innerWidth < 768; // Adjust the breakpoint based on your design
+
+    if (isSidebarCollapsed) {
+        layoutSidenav.style.width = '60px';
+        layoutSidenavContent.style.marginLeft = '60px';
+        welcomeMessage.style.marginLeft = '60px';
+    } else {
+        layoutSidenav.style.width = '240px';
+        layoutSidenavContent.style.marginLeft = '240px';
+        welcomeMessage.style.marginLeft = '240px';
+    }
+});
+document.addEventListener

@@ -14803,3 +14803,51 @@ html, body {
   border-radius: 0.375rem !important;
 }
 
+.content-adjust {
+  transition: margin-left 0.5s;
+}
+
+.sidebar-collapsed {
+  margin-left: 60px; /* Adjust the value based on your sidebar width */
+}
+
+#welcomeMessage {
+  margin-top: 2rem; /* Adjust the value as needed */
+}
+
+        /* Top Navigation Bar */
+        .sb-topnav {
+          background-color: #095d7e !important; /* Set the background color to #095d7e */
+      }
+
+      /* Sidebar */
+      .sb-sidenav {
+          background-color: #14967f !important; /* Set the background color to #095d7e */
+      }
+
+      .sb-sidenav-menu a.nav-link {
+        color: white !important; /* Change text color to white */
+    }
+
+      #layoutSidenav_nav {
+          transition: width 0.5s;
+      }
+
+      #layoutSidenav_content {
+          transition: margin-left 0.5s;
+      }
+
+      #welcomeMessage {
+          transition: margin-left 0.5s;
+      }
+
+      .main-content {
+          margin-top: 80px; /* Adjust the value as needed */
+      }
+
+      @media (max-width: 768px) {
+          .main-content {
+              margin-top: 60px;
+          }
+      }
+
