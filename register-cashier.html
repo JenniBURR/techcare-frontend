@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Register - TechCare</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body class="d-flex flex-column align-items-center justify-content-center" style="height: 100vh; background-color: #e2fcd6;">
+    <div class="container" style="width: 400px; background-color: rgba(255, 255, 255, 0.8); padding: 20px; border-radius: 10px;">
+        <h1 class="text-center mb-1">TechCare</h1>
+        <p class="text-center mb-3 small">Medicine Inventory System</p>
+
+        <div class="card p-4">
+            <!-- Registration form in a square card -->
+            <h2 class="text-center mb-4">New Cashier Registration</h2>
+            <form>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control form-control" type="text" id="inputFirstName" placeholder="Enter your first name">
+                            <label class="form-label" for="inputFirstName">First name</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input class="form-control form-control" type="text" id="inputLastName" placeholder="Enter your last name">
+                            <label class="form-label" for="inputLastName">Last name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input class="form-control form-control" type="email" id="inputEmail" placeholder="name@example.com">
+                    <label class="form-label" for="inputEmail">Email address</label>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control form-control" type="password" id="inputPassword" placeholder="Create a password">
+                            <label class="form-label" for="inputPassword">Password</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control form-control" type="password" id="inputPasswordConfirm" placeholder="Confirm password">
+                            <label class="form-label" for="inputPasswordConfirm">Confirm Password</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="inputPhoneNumber" class="form-label">Phone Number</label>
+                        <input class="form-control form-control" type="tel" id="inputPhoneNumber" placeholder="Enter your phone number">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="inputAddress" class="form-label">Address</label>
+                        <input class="form-control form-control" type="text" id="inputAddress" placeholder="Enter your address">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <label for="inputGender" class="form-label">Gender</label>
+                    <select class="form-select" id="inputGender" style="width: 100%;">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="mt-4 mb-0">
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary" style="background-color: #095d7e;">Create Account</button>
+                    </div>
+                </div>
+
+        <!-- Footer -->
+        <footer class="mt-2 text-center" style="color: #095d7e;">
+            <span>&copy; TechCare 2023</span>
+        </footer>
+    </div>
+
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/js/scripts.js"></script>
+</body>
+
+</html>
