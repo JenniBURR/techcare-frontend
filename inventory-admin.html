@@ -4,15 +4,34 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Dashboard - TechCare</title>
+    <title>Tables - SB Admin</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        #layoutSidenav_nav {
+            transition: width 0.5s;
+        }
+
+        #layoutSidenav_content {
+            transition: margin-left 0.5s;
+        }
+
+        .main-content {
+            margin-top: 80px; /* Adjust the value as needed */
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-top: 60px;
+            }
+        }
+    </style>
 </head>
 
 <body class="sb-nav-fixed">
-<!-- Top Navigation Bar -->
+    <!-- Top Navigation Bar -->
     <nav class="bg-dark sb-topnav navbar navbar-expand navbar-dark">
         <a class="navbar-brand ps-3" href="dashboard-cashier.html">TechCare</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle">
@@ -41,14 +60,14 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">
-                            <span>Cashier Panel</span>
+                            <span>Admin Panel</span>
                         </div>
                         <a class="nav-link" href="dashboard-cashier.html">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-tachometer-alt"></i>
                             </div> Dashboard
                         </a>
-                        <a class="nav-link" href="inventory-cashier.html">
+                        <a class="nav-link" href="inventory.html">
                             <div class="sb-nav-link-icon">
                                 <i class="fas fa-table"></i>
                             </div> Inventory
@@ -69,63 +88,54 @@
             </nav>
         </div>
     </div>
+
     <div id="layoutSidenav_content" class="content-adjust">
         <main class="main-content">
             <div class="container-fluid px-4">
-                <div class="row">
-                    <div >
-                        <h1 id="welcomeMessage" class="mt-2 mb-4">Welcome, <?php echo $userName; ?></h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">
-                                <span>Dashboard</span>
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-        
-                <!-- Summary of Sales -->
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-chart-bar me-1"></i>
-                                Sales Summary
-                            </div>
-                            <div class="card-body">
-                                <!-- Add your sales summary content here -->
-                            </div>
-                        </div>
-                    </div>
-        
-                    <!-- List of Stocks -->
-                    <div class="col-md-6">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-box me-1"></i>
-                                List of Stocks
-                            </div>
-                            <div class="card-body">
-                                <!-- Add your list of stocks content here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-                <!-- Short Summary of Inventory Table -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Inventory Table Summary
-                    </div>
-                    <div class="card-body">
-                        <!-- Add your inventory table summary content here -->
-                    </div>
-                </div>
+                <h1 class="mt-4">Inventory</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item"><a href="dashboard-cashier.html"><span>Dashboard</span></a></li>
+                    <li class="breadcrumb-item active"><span>Inventory</span></li>
+                </ol>
             </div>
+            <!-- Short Summary of Inventory Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Inventory Details
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Product ID</th>
+                            <th>Product Name</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                            // Replace this with your actual database query logic
+                            // Loop through the results and populate the table rows
+                            foreach ($inventoryData as $row) {
+                                echo "<tr>";
+                                echo "<td>" . $row['product_id'] . "</td>";
+                                echo "<td>" . $row['product_name'] . "</td>";
+                                echo "<td>" . $row['category'] . "</td>";
+                                echo "<td>" . $row['quantity'] . "</td>";
+                                echo "<td>" . $row['price'] . "</td>";
+                                echo "</tr>";
+                            }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
         </main>
         <footer class="bg-light mt-auto py-4">
             <div class="container-fluid px-4">
@@ -133,6 +143,7 @@
                     <div class="text-muted">
                         <span>Copyright © TechCare 2023</span>
                     </div>
+                    <div><a href="#">Privacy Policy</a><span> · </span><a href="#">Terms &amp; Conditions</a></div>
                 </div>
             </div>
         </footer>
