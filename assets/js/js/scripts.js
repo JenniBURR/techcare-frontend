@@ -25,6 +25,21 @@ window.addEventListener('DOMContentLoaded', event => {
 
 });
 
+// Wait for the DOM to be ready before initializing DataTable
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize DataTable
+    const dataTable = new simpleDatatables.DataTable('#dataTable');
+
+    // Add event listener for the search input
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', function () {
+            // Search and filter the table based on user input
+            dataTable.search(this.value);
+        });
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     var sidebarToggle = document.getElementById('sidebarToggle');
     var layoutSidenavContent = document.getElementById('layoutSidenav_content');

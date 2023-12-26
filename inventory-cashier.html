@@ -93,43 +93,193 @@
                     <li class="breadcrumb-item active"><span>Inventory</span></li>
                 </ol>
             </div>
-            <!-- Short Summary of Inventory Table -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Inventory Details
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>Product ID</th>
-                            <th>Product Name</th>
-                            <th>Category</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                            // Replace this with your actual database query logic
-                            // Loop through the results and populate the table rows
-                            foreach ($inventoryData as $row) {
-                                echo "<tr>";
-                                echo "<td>" . $row['product_id'] . "</td>";
-                                echo "<td>" . $row['product_name'] . "</td>";
-                                echo "<td>" . $row['category'] . "</td>";
-                                echo "<td>" . $row['quantity'] . "</td>";
-                                echo "<td>" . $row['price'] . "</td>";
-                                echo "</tr>";
-                            }
-                        ?>
-                    </tbody>
-                </table>
+
+            <!-- Medicine Table -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Medicine Details
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form method="post">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Search Medicine" name="searchMedicine">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            </div>
+                        </form>
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>MedicineID</th>
+                                    <th>Name</th>
+                                    <th>Manufacturer</th>
+                                    <th>ExpiryDate</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                // Replace the following PHP code with your actual database connection logic
+                                $servername = "your_server_name";
+                                $username = "your_username";
+                                $password = "your_password";
+                                $dbname = "your_database_name";
+
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+
+                                // Search functionality
+                                $searchMedicine = isset($_POST['searchMedicine']) ? $_POST['searchMedicine'] : '';
+
+                                $sql = "SELECT * FROM medicine WHERE Name LIKE '%$searchMedicine%'";
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['MedicineID'] . "</td>";
+                                        echo "<td>" . $row['Name'] . "</td>";
+                                        echo "<td>" . $row['Manufacturer'] . "</td>";
+                                        echo "<td>" . $row['ExpiryDate'] . "</td>";
+                                        echo "<td>" . $row['Quantity'] . "</td>";
+                                        echo "<td>" . $row['Price'] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='6'>No results found</td></tr>";
+                                }
+
+                                $conn->close();
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
+
+            <!-- Supplier Table -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Supplier Details
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form method="post">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Search Supplier" name="searchSupplier">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            </div>
+                        </form>
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>SupplierID</th>
+                                    <th>Name</th>
+                                    <th>ContactInfo</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                // Replace the following PHP code with your actual database connection logic
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+
+                                // Search functionality
+                                $searchSupplier = isset($_POST['searchSupplier']) ? $_POST['searchSupplier'] : '';
+
+                                $sql = "SELECT * FROM supplier WHERE Name LIKE '%$searchSupplier%'";
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['SupplierID'] . "</td>";
+                                        echo "<td>" . $row['Name'] . "</td>";
+                                        echo "<td>" . $row['ContactInfo'] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='3'>No results found</td></tr>";
+                                }
+
+                                $conn->close();
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Inventory Table -->
+            <div class="card mb-4">
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Inventory Details
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <form method="post">
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Search Inventory" name="searchInventory">
+                                <button class="btn btn-outline-secondary" type="submit">Search</button>
+                            </div>
+                        </form>
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>InventoryID</th>
+                                    <th>MedicineID</th>
+                                    <th>SupplierID</th>
+                                    <th>PurchaseDate</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                // Replace the following PHP code with your actual database connection logic
+                                $conn = new mysqli($servername, $username, $password, $dbname);
+
+                                if ($conn->connect_error) {
+                                    die("Connection failed: " . $conn->connect_error);
+                                }
+
+                                // Search functionality
+                                $searchInventory = isset($_POST['searchInventory']) ? $_POST['searchInventory'] : '';
+
+                                $sql = "SELECT * FROM inventory WHERE MedicineID LIKE '%$searchInventory%' OR SupplierID LIKE '%$searchInventory%'";
+                                $result = $conn->query($sql);
+
+                                if ($result->num_rows > 0) {
+                                    while ($row = $result->fetch_assoc()) {
+                                        echo "<tr>";
+                                        echo "<td>" . $row['InventoryID'] . "</td>";
+                                        echo "<td>" . $row['MedicineID'] . "</td>";
+                                        echo "<td>" . $row['SupplierID'] . "</td>";
+                                        echo "<td>" . $row['PurchaseDate'] . "</td>";
+                                        echo "<td>" . $row['Quantity'] . "</td>";
+                                        echo "</tr>";
+                                    }
+                                } else {
+                                    echo "<tr><td colspan='5'>No results found</td></tr>";
+                                }
+
+                                $conn->close();
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
 
         </main>
         <footer class="bg-light mt-auto py-4">
