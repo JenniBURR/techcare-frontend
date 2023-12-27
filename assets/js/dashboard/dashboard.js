@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Function to fetch and display data for each table
     function fetchTableData(endpoint, tableBodyId, limit) {
-      fetch(`${endpoint}?_limit=${limit}`)
+      const url = new URL(endpoint);
+      url.searchParams.set('_limit', limit);
+
+      fetch(url)
           .then(response => response.json())
           .then(data => {
               const tableBody = document.getElementById(tableBodyId);
               tableBody.innerHTML = ''; // Clear existing rows
-  
+
               if (data.length > 0) {
                   data.forEach(item => {
                       const row = document.createElement('tr');
@@ -25,36 +28,30 @@ document.addEventListener('DOMContentLoaded', function () {
           .catch(error => console.error('Error fetching data:', error));
   }
 
-    // Function to handle table navigation buttons
-    function handleTableNavigation(tableId, navigationType) {
-        const table = document.getElementById(tableId);
-        const tableRows = table.querySelectorAll('tbody tr');
-        let currentIndex = 0;
-        tableRows.forEach((row, index) => {
-            if (row.style.display !== 'none') {
-                currentIndex = index;
-            }
-            row.style.display = 'none';
-        });
+  // Initial fetch when the page loads
+  fetchTableData('http://127.0.0.1:8000/api/medicine', 'medicineTableBody', 5);
+  fetchTableData('http://127.0.0.1:8000/api/supplier', 'supplierTableBody', 5);
+  fetchTableData('http://127.0.0.1:8000/api/inventory', 'inventoryTableBody', 5);
+  fetchTableData('http://127.0.0.1:8000/api/stock', 'stocksTableBody', 5);
+});
 
-        if (navigationType === 'next') {
-            currentIndex = (currentIndex + 1) % tableRows.length;
-        } else if (navigationType === 'prev') {
-            currentIndex = (currentIndex - 1 + tableRows.length) % tableRows.length;
-        }
+// Add event listener to refresh the table when a search is submitted
+document.addEventListener('submit', function (event) {
+  event.preventDefault();
+  const form = event.target;
 
-        const end = Math.min(currentIndex + 5, tableRows.length);
-        for (let i = currentIndex; i < end; i++) {
-            tableRows[i].style.display = '';
-        }
-    }
+  if (form.classList.contains('search-form')) {
+      const endpoint = form.dataset.endpoint;
+      const tableBodyId = form.dataset.tableBody;
+      const searchTerm = form.search.value.trim();
 
-    // Initial fetch when the page loads
-    const limit = 5;
-    fetchTableData('http://127.0.0.1:8000/api/medicine', 'medicineTableBody', limit);
-    fetchTableData('http://127.0.0.1:8000/api/supplier', 'supplierTableBody', limit);
-    fetchTableData('http://127.0.0.1:8000/api/inventory', 'inventoryTableBody', limit);
-    fetchTableData('http://127.0.0.1:8000/api/stock', 'stocksTableBody', limit);
+      const limit = form.dataset.limit;
+
+      const url = new URL(endpoint);
+      url.searchParams.set('search', searchTerm);
+
+      fetchTableData(url.toString(), tableBodyId, limit);
+  }
 
     // Event listeners for table navigation buttons
     document.getElementById('nextSupplier').addEventListener('click', function () {
