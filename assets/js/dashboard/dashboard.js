@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
   // Function to fetch and display data for each table
-  // Function to fetch and display data for each table
 function fetchTableData(endpoint, tableBodyId, limit) {
   const url = new URL(endpoint);
   url.searchParams.set('_limit', limit);
