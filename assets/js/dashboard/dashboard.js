@@ -1,16 +1,4 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Function to initialize and configure Simple Datatables
-    function initializeDatatable(tableId) {
-      const table = new simpleDatatables.DataTable(`#${tableId}`, {
-          searchable: true,
-          perPage: 5,
-          labels: {
-              noRows: 'No data found',
-              info: 'Showing {start} to {end} of {rows} entries',
-          },
-      });
-  }
-
   // Function to fetch and display data for each table
   function fetchTableData(endpoint, tableBodyId) {
       fetch(endpoint)
@@ -36,21 +24,6 @@ document.addEventListener('DOMContentLoaded', function () {
           })
           .catch(error => console.error('Error fetching data:', error));
   }
-
-  // Helper function to create row HTML based on keys
-  function createRowHTML(item, keys) {
-    const row = document.createElement('tr');
-    keys.forEach(key => {
-        row.innerHTML += `<td>${item[key]}</td>`;
-    });
-    return row;
-}
-
-  // Initial fetch when the page loads
-  const medicineKeys = ['medicine_id', 'name', 'manufacturer', 'expiry_date', 'quantity', 'price'];
-  const supplierKeys = ['supplier_id', 'name', 'contact_info'];
-  const inventoryKeys = ['inventory_id', 'medicine_id', 'supplier_id', 'quantity', 'purchase_date'];
-  const stockKeys = ['stock_id', 'inventory_id', 'branch_id', 'movement_type', 'quantity'];
 
   // Initial fetch when the page loads
   fetchTableData('http://127.0.0.1:8000/api/medicine', 'medicineTableBody');
@@ -94,6 +67,11 @@ document.addEventListener('DOMContentLoaded', function () {
   // Initial fetch when the page loads
   fetchMedicines();
 
+  // Add event listener to refresh the table when a search is submitted (if you have search functionality)
+  document.querySelector('form[name="medicineSearchForm"]').addEventListener('submit', function (event) {
+      event.preventDefault();
+      fetchMedicines();
+  });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -124,9 +102,32 @@ document.addEventListener('DOMContentLoaded', function () {
           })
           .catch(error => console.error('Error fetching suppliers:', error));
   }
+
   // Initial fetch when the page loads
   fetchSuppliers();
 
+  // Add event listener to refresh the table when a search is submitted (if you have search functionality)
+  document.querySelector('form[name="suppliersSearchForm"]').addEventListener('submit', function (event) {
+      event.preventDefault();
+      fetchSuppliers();
+  });
+
+  // Add event listener for form submission (create/update)
+  document.querySelector('form[name="suppliersForm"]').addEventListener('submit', function (event) {
+      event.preventDefault();
+      // Implement the logic for creating or updating suppliers
+      // You may use the Fetch API or another library (e.g., Axios) to make HTTP requests to your Laravel backend.
+  });
+
+  // Add event listeners for edit and delete buttons (implement the logic accordingly)
+  document.getElementById('suppliersTableBody').addEventListener('click', function (event) {
+      const target = event.target;
+      if (target.classList.contains('btn-info')) {
+          // Implement logic for editing a supplier
+      } else if (target.classList.contains('btn-danger')) {
+          // Implement logic for deleting a supplier
+      }
+  });
 });
 
 
@@ -163,39 +164,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Initial fetch when the page loads
   fetchInventory();
+
+  // Add event listener to refresh the table when a search is submitted (if you have search functionality)
+  document.querySelector('form[name="inventorySearchForm"]').addEventListener('submit', function (event) {
+      event.preventDefault();
+      fetchInventory();
+  });
+
+  // Add event listener for form submission (create/update)
+  document.querySelector('form[name="inventoryForm"]').addEventListener('submit', function (event) {
+      event.preventDefault();
+      // Implement the logic for creating or updating inventory items
+      // You may use the Fetch API or another library (e.g., Axios) to make HTTP requests to your Laravel backend.
+  });
+
+  // Add event listeners for edit and delete buttons (implement the logic accordingly)
+  document.getElementById('inventoryTableBody').addEventListener('click', function (event) {
+      const target = event.target;
+      if (target.classList.contains('btn-info')) {
+          // Implement logic for editing an inventory item
+      } else if (target.classList.contains('btn-danger')) {
+          // Implement logic for deleting an inventory item
+      }
+  });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-  // Function to fetch and display stock
-  function fetchStock() {
-      fetch('http://127.0.0.1:8000/api/stock')
-          .then(response => response.json())
-          .then(data => {
-              const stocksTableBody = document.getElementById('stocksTableBody');
-              stocksTableBody.innerHTML = ''; // Clear existing rows
-
-              if (data.length > 0) {
-                  data.forEach(item => {
-                      const row = document.createElement('tr');
-                      row.innerHTML = `
-                          <td>${item.stock_id}</td>
-                          <td>${item.inventory_id}</td>
-                          <td>${item.branch_id}</td>
-                          <td>${item.movement_type}</td>
-                          <td>${item.quantity}</td>
-                      `;
-                      stocksTableBody.appendChild(row);
-                  });
-              } else {
-                  // Display a message when no inventory items are available
-                  const row = document.createElement('tr');
-                  row.innerHTML = '<td colspan="6">No stock items found</td>';
-                  stocksTableBody.appendChild(row);
-              }
-          })
-          .catch(error => console.error('Error fetching inventory:', error));
-  }
-
-  // Initial fetch when the page loads
-  fetchStock();
-});
