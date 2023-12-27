@@ -67,61 +67,143 @@
     <div id="layoutSidenav_content" class="content-adjust">
         <main class="main-content">
             <div class="container-fluid px-4">
+                <h1 class="mt-4">Dashboard</h1>
                 <div class="row">
-                    <div >
-                        <h1 id="welcomeMessage" class="mt-2 mb-4">Welcome, <?php echo $userName; ?></h1>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">
-                                <span>Dashboard</span>
-                            </li>
-                        </ol>
-                    </div>
-                </div>
-        
-                <!-- Summary of Sales -->
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-chart-bar me-1"></i>
-                                Sales Summary
+                                <i class="fas fa-pills me-1"></i>
+                                Medicine Summary
                             </div>
                             <div class="card-body">
-                                <!-- Add your sales summary content here -->
+                                <p>Total Medicines: <span id="totalMedicines">Loading...</span></p>
                             </div>
                         </div>
                     </div>
-        
-                    <!-- List of Stocks -->
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div class="card mb-4">
                             <div class="card-header">
-                                <i class="fas fa-box me-1"></i>
-                                List of Stocks
+                                <i class="fas fa-truck me-1"></i>
+                                Supplier Summary
                             </div>
                             <div class="card-body">
-                                <!-- Add your list of stocks content here -->
+                                <p>Total Suppliers: <span id="totalSuppliers">Loading...</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <i class="fas fa-boxes me-1"></i>
+                                Inventory Summary
+                            </div>
+                            <div class="card-body">
+                                <p>Total Inventory Items: <span id="totalInventory">Loading...</span></p>
                             </div>
                         </div>
                     </div>
                 </div>
         
-                <!-- Short Summary of Inventory Table -->
+                <!-- Medicine Table -->
                 <div class="card mb-4">
                     <div class="card-header">
-                        <i class="fas fa-table me-1"></i>
-                        Inventory Table Summary
+                        <i class="fas fa-pills me-1"></i>
+                        Medicine Details
                     </div>
                     <div class="card-body">
-                        <!-- Add your inventory table summary content here -->
+                        <!-- Medicine table will be populated dynamically here -->
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>MedicineID</th>
+                                    <th>Name</th>
+                                    <th>Manufacturer</th>
+                                    <th>ExpiryDate</th>
+                                    <th>Quantity</th>
+                                    <th>Price</th>
+                                </tr>
+                            </thead>
+                            <tbody id="medicineTableBody">
+                                <!-- Existing or dynamically added rows will go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        
+                <!-- Supplier Table -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-truck me-1"></i>
+                        Supplier Details
+                    </div>
+                    <div class="card-body">
+                        <!-- Supplier table will be populated dynamically here -->
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>SupplierID</th>
+                                    <th>Name</th>
+                                    <th>ContactInfo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="supplierTableBody">
+                                <!-- Existing or dynamically added rows will go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        
+                <!-- Inventory Table -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-boxes me-1"></i>
+                        Inventory Details
+                    </div>
+                    <div class="card-body">
+                        <!-- Inventory table will be populated dynamically here -->
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>InventoryID</th>
+                                    <th>MedicineID</th>
+                                    <th>SupplierID</th>
+                                    <th>PurchaseDate</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTableBody">
+                                <!-- Existing or dynamically added rows will go here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        
+                <!-- Stocks Table -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-cubes me-1"></i>
+                        Stocks Details
+                    </div>
+                    <div class="card-body">
+                        <!-- Stocks table will be populated dynamically here -->
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>StockID</th>
+                                    <th>MedicineID</th>
+                                    <th>Quantity</th>
+                                    <th>ExpirationDate</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stocksTableBody">
+                                <!-- Existing or dynamically added rows will go here -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </main>
+        
         <footer class="bg-light mt-auto py-4">
             <div class="container-fluid px-4">
                 <div class="d-flex justify-content-between align-items-center small">

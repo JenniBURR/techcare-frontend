@@ -75,6 +75,61 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Function to fetch and display summaries
+    function fetchSummaries() {
+        fetch('http://your_laravel_api_endpoint_for_medicine_summary')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('totalMedicines').textContent = data.totalMedicines;
+            });
+
+        fetch('http://your_laravel_api_endpoint_for_supplier_summary')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('totalSuppliers').textContent = data.totalSuppliers;
+            });
+
+        fetch('http://your_laravel_api_endpoint_for_inventory_summary')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('totalInventory').textContent = data.totalInventory;
+            });
+    }
+
+    // Function to fetch and display data for each table
+    function fetchTableData(endpoint, tableBodyId) {
+        fetch(endpoint)
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById(tableBodyId);
+                tableBody.innerHTML = ''; // Clear existing rows
+
+                if (data.length > 0) {
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        // Adjust the row creation based on the actual structure of your data
+                        // For example: row.innerHTML = `<td>${item.field1}</td><td>${item.field2}</td>...`;
+                        tableBody.appendChild(row);
+                    });
+                } else {
+                    // Display a message when no data is available
+                    const row = document.createElement('tr');
+                    row.innerHTML = '<td colspan="3">No data found</td>';
+                    tableBody.appendChild(row);
+                }
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+
+    // Initial fetch when the page loads
+    fetchSummaries();
+    fetchTableData('http://127.0.0.1:8000/api/medicine', 'medicineTableBody');
+    fetchTableData('http://127.0.0.1:8000/api/supplier', 'supplierTableBody');
+    fetchTableData('http://127.0.0.1:8000/api/inventory', 'inventoryTableBody');
+    fetchTableData('http://127.0.0.1:8000/api/stocks', 'stocksTableBody');
+});
+
+document.addEventListener('DOMContentLoaded', function () {
     // Function to fetch and display medicines
     function fetchMedicines() {
         fetch('http://127.0.0.1:8000/api/medicine')
