@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchTableData('http://127.0.0.1:8000/api/medicine', 'medicineTableBody');
     fetchTableData('http://127.0.0.1:8000/api/supplier', 'supplierTableBody');
     fetchTableData('http://127.0.0.1:8000/api/inventory', 'inventoryTableBody');
-    fetchTableData('http://127.0.0.1:8000/api/stocks', 'stocksTableBody');
+    fetchTableData('http://127.0.0.1:8000/api/stock', 'stocksTableBody');
 });
 
 document.addEventListener('DOMContentLoaded', function () {
