@@ -65,105 +65,152 @@
                 <h1 class="mt-4">Dashboard</h1>
                 </div>
         
-                <!-- Medicine Table -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-pills me-1"></i>
-                        Medicine Details
-                    </div>
-                    <div class="card-body">
-                        <!-- Medicine table will be populated dynamically here -->
-                        <table class="table table-bordered" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>MedicineID</th>
-                                    <th>Name</th>
-                                    <th>Manufacturer</th>
-                                    <th>ExpiryDate</th>
-                                    <th>Quantity</th>
-                                    <th>Price</th>
-                                </tr>
-                            </thead>
-                            <tbody id="medicineTableBody">
-                                <!-- Existing or dynamically added rows will go here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-        
-                <!-- Supplier Table -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-truck me-1"></i>
-                        Supplier Details
-                    </div>
-                    <div class="card-body">
-                        <!-- Supplier table will be populated dynamically here -->
-                        <table class="table table-bordered" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>SupplierID</th>
-                                    <th>Name</th>
-                                    <th>ContactInfo</th>
-                                </tr>
-                            </thead>
-                            <tbody id="supplierTableBody">
-                                <!-- Existing or dynamically added rows will go here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-        
-                <!-- Inventory Table -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-boxes me-1"></i>
-                        Inventory Details
-                    </div>
-                    <div class="card-body">
-                        <!-- Inventory table will be populated dynamically here -->
-                        <table class="table table-bordered" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>InventoryID</th>
-                                    <th>MedicineID</th>
-                                    <th>SupplierID</th>
-                                    <th>Quantity</th>
-                                    <th>PurchaseDate</th>
-                                </tr>
-                            </thead>
-                            <tbody id="inventoryTableBody">
-                                <!-- Existing or dynamically added rows will go here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-        
-                <!-- Stocks Table -->
-                <div class="card mb-4">
-                    <div class="card-header">
-                        <i class="fas fa-cubes me-1"></i>
-                        Stocks Details
-                    </div>
-                    <div class="card-body">
-                        <!-- Stocks table will be populated dynamically here -->
-                        <table class="table table-bordered" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>StockID</th>
-                                    <th>InventoryID</th>
-                                    <th>BranchID</th>
-                                    <th>MovementType</th>
-                                    <th>Quantity</th>
-                                </tr>
-                            </thead>
-                            <tbody id="stocksTableBody">
-                                <!-- Existing or dynamically added rows will go here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+    <!-- Medicine Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-pills me-1"></i> Medicine Details
+            <div class="d-flex align-items-center">
+                <label for="medicineSearch">Search:</label>
+                <input type="text" id="medicineSearch" class="form-control form-control-sm">
+                <label for="medicineLimit">Show:</label>
+                <select id="medicineLimit">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <!-- Add more options as needed -->
+                </select>
             </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered" width="100%" cellspacing="0" id="medicineTable">
+                <thead>
+                    <tr>
+                        <th>MedicineID</th>
+                        <th>Name</th>
+                        <th>Manufacturer</th>
+                        <th>ExpiryDate</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody id="medicineTableBody">
+                    <!-- Existing or dynamically added rows will go here -->
+                </tbody>
+            </table>
+            <div class="float-end mt-3">
+                <button id="prevMedicine" class="btn btn-outline-secondary btn-sm">Previous</button>
+                <button id="nextMedicine" class="btn btn-outline-secondary btn-sm">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supplier Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-truck me-1"></i> Supplier Details
+            <div class="d-flex align-items-center">
+                <label for="supplierSearch">Search:</label>
+                <input type="text" id="supplierSearch" class="form-control form-control-sm">
+                <label for="supplierLimit">Show:</label>
+                <select id="supplierLimit">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered" width="100%" cellspacing="0" id="supplierTable">
+                <thead>
+                    <tr>
+                        <th>SupplierID</th>
+                        <th>Name</th>
+                        <th>ContactInfo</th>
+                    </tr>
+                </thead>
+                <tbody id="supplierTableBody">
+                    <!-- Existing or dynamically added rows will go here -->
+                </tbody>
+            </table>
+            <div class="float-end mt-3">
+                <button id="prevSupplier" class="btn btn-outline-secondary btn-sm">Previous</button>
+                <button id="nextSupplier" class="btn btn-outline-secondary btn-sm">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Inventory Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-boxes me-1"></i> Inventory Details
+            <div class="d-flex align-items-center">
+                <label for="inventorySearch">Search:</label>
+                <input type="text" id="inventorySearch" class="form-control form-control-sm">
+                <label for="inventoryLimit">Show:</label>
+                <select id="inventoryLimit">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered" width="100%" cellspacing="0" id="inventoryTable">
+                <thead>
+                    <tr>
+                        <th>InventoryID</th>
+                        <th>MedicineID</th>
+                        <th>SupplierID</th>
+                        <th>Quantity</th>
+                        <th>PurchaseDate</th>
+                    </tr>
+                </thead>
+                <tbody id="inventoryTableBody">
+                    <!-- Existing or dynamically added rows will go here -->
+                </tbody>
+            </table>
+            <div class="float-end mt-3">
+                <button id="prevInventory" class="btn btn-outline-secondary btn-sm">Previous</button>
+                <button id="nextInventory" class="btn btn-outline-secondary btn-sm">Next</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stocks Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-cubes me-1"></i> Stocks Details
+            <div class="d-flex align-items-center">
+                <label for="stocksSearch">Search:</label>
+                <input type="text" id="stocksSearch" class="form-control form-control-sm">
+                <label for="stocksLimit">Show:</label>
+                <select id="stocksLimit">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <!-- Add more options as needed -->
+                </select>
+            </div>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered" width="100%" cellspacing="0" id="stocksTable">
+                <thead>
+                    <tr>
+                        <th>StockID</th>
+                        <th>InventoryID</th>
+                        <th>BranchID</th>
+                        <th>MovementType</th>
+                        <th>Quantity</th>
+                    </tr>
+                </thead>
+                <tbody id="stocksTableBody">
+                    <!-- Existing or dynamically added rows will go here -->
+                </tbody>
+            </table>
+            <div class="float-end mt-3">
+                <button id="prevStocks" class="btn btn-outline-secondary btn-sm">Previous</button>
+                <button id="nextStocks" class="btn btn-outline-secondary btn-sm">Next</button>
+            </div>
+        </div>
+    </div>
         </main>
         
         <footer class="bg-light mt-auto py-4">
