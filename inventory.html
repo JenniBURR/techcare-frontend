@@ -105,13 +105,89 @@
                 </ol>
             </div>
             
-    <!-- Medicine Add Form -->
-    <form id="addMedicineForm" class="add-form">
-        <!-- Add Medicine Form Fields Here -->
-        <button type="submit" class="btn btn-success btn-sm">
-            <i class="fas fa-plus"></i> Add Medicine
-        </button>
-    </form>
+    <!-- Medicine Add Button -->
+<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addMedicineModal">
+    <i class="fas fa-plus"></i> Add Medicine
+</button>
+
+    <!-- Medicine Add Modal -->
+    <div class="modal fade" id="addMedicineModal" tabindex="-1" aria-labelledby="addMedicineModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMedicineModalLabel">Add Medicine</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Medicine Add Form -->
+                    <form id="addMedicineForm" class="add-form">
+                        <!-- Add Medicine Form Fields Here -->
+                        <div class="mb-3">
+                            <label for="medicineName" class="form-label">Medicine Name</label>
+                            <input type="text" class="form-control" id="medicineName" name="medicine_name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="manufacturer" class="form-label">Manufacturer</label>
+                            <input type="text" class="form-control" id="manufacturer" name="manufacturer" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="expiryDate" class="form-label">Expiry Date</label>
+                            <input type="date" class="form-control" id="expiryDate" name="expirydate" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="number" class="form-control" id="price" name="price" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fas fa-plus"></i> Add Medicine
+                        </button>
+                    </form>
+                    <!-- End Medicine Add Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Medicine Add Modal -->
+
+    <!-- Edit Medicine Modal -->
+<div class="modal fade" id="editMedicineModal" tabindex="-1" aria-labelledby="editMedicineModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editMedicineModalLabel">Edit Medicine</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Edit Medicine Form Fields Here -->
+                <input type="hidden" id="editMedicineId">
+                <label for="editMedicineName">Name:</label>
+                <input type="text" id="editMedicineName" class="form-control">
+                <label for="editManufacturer">Manufacturer:</label>
+                <input type="text" id="editManufacturer" class="form-control">
+                <label for="editExpiryDate">Expiry Date:</label>
+                <input type="text" id="editExpiryDate" class="form-control">
+                <label for="editQuantity">Quantity:</label>
+                <input type="text" id="editQuantity" class="form-control">
+                <label for="editPrice">Price:</label>
+                <input type="text" id="editPrice" class="form-control">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="editMedicine()">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
     <!-- Medicine Table -->
     <div class="card mb-4">
@@ -151,13 +227,43 @@
         </div>
     </div>
 
-    <!-- Supplier Add Form -->
-    <form id="addSupplierForm" class="add-form">
-        <!-- Add Supplier Form Fields Here -->
-        <button type="submit" class="btn btn-success btn-sm">
-            <i class="fas fa-plus"></i> Add Supplier
-        </button>
-    </form>
+    <!-- Supplier Add Button -->
+    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addSupplierModal">
+        <i class="fas fa-plus"></i> Add Supplier
+    </button>
+
+    <!-- Supplier Add Modal -->
+    <div class="modal fade" id="addSupplierModal" tabindex="-1" aria-labelledby="addSupplierModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addSupplierModalLabel">Add Supplier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Supplier Add Form -->
+                    <form id="addSupplierForm" class="add-form">
+                        <!-- Add Supplier Form Fields Here -->
+                        <div class="mb-3">
+                            <label for="supplierName" class="form-label">Supplier Name</label>
+                            <input type="text" class="form-control" id="supplierName" name="supplier_name" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="contactInfo" class="form-label">Contact Information</label>
+                            <input type="text" class="form-control" id="contactInfo" name="contact_info" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fas fa-plus"></i> Add Supplier
+                        </button>
+                    </form>
+                    <!-- End Supplier Add Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Supplier Add Modal -->
 
     <!-- Supplier Table -->
     <div class="card mb-4">
@@ -194,13 +300,54 @@
         </div>
     </div>
 
-    <!-- Inventory Add Form -->
-    <form id="addInventoryForm" class="add-form">
-        <!-- Add Inventory Form Fields Here -->
-        <button type="submit" class="btn btn-success btn-sm">
-            <i class="fas fa-plus"></i> Add Inventory
-        </button>
-    </form>
+    <!-- Inventory Add Button -->
+    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addInventoryModal">
+        <i class="fas fa-plus"></i> Add Inventory
+    </button>
+
+    <!-- Inventory Add Modal -->
+    <div class="modal fade" id="addInventoryModal" tabindex="-1" aria-labelledby="addInventoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addInventoryModalLabel">Add Inventory</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Inventory Add Form -->
+                    <form id="addInventoryForm" class="add-form">
+                        <!-- Add Inventory Form Fields Here -->
+                        <div class="mb-3">
+                            <label for="medicineId" class="form-label">Medicine ID</label>
+                            <input type="text" class="form-control" id="medicineId" name="medicine_id" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="supplierId" class="form-label">Supplier ID</label>
+                            <input type="text" class="form-control" id="supplierId" name="supplier_id" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="text" class="form-control" id="quantity" name="quantity" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="purchaseDate" class="form-label">Purchase Date</label>
+                            <input type="date" class="form-control" id="purchaseDate" name="purchase_date" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fas fa-plus"></i> Add Inventory
+                        </button>
+                    </form>
+                    <!-- End Inventory Add Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Inventory Add Modal -->
+
 
     <!-- Inventory Table -->
     <div class="card mb-4">
@@ -239,13 +386,54 @@
         </div>
     </div>
 
-    <!-- Stocks Add Form -->
-    <form id="addStocksForm" class="add-form">
-        <!-- Add Stocks Form Fields Here -->
-        <button type="submit" class="btn btn-success btn-sm">
-            <i class="fas fa-plus"></i> Add Stocks
-        </button>
-    </form>
+    <!-- Stocks Add Button -->
+    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStockModal">
+        <i class="fas fa-plus"></i> Add Stock
+    </button>
+
+    <!-- Stocks Add Modal -->
+    <div class="modal fade" id="addStockModal" tabindex="-1" aria-labelledby="addStockModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStockModalLabel">Add Stock</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Stocks Add Form -->
+                    <form id="addStocksForm" class="add-form">
+                        <!-- Add Stocks Form Fields Here -->
+                        <div class="mb-3">
+                            <label for="inventoryId" class="form-label">Inventory ID</label>
+                            <input type="text" class="form-control" id="inventoryId" name="inventory_id" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="branchId" class="form-label">Branch ID</label>
+                            <input type="text" class="form-control" id="branchId" name="branch_id" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="movementType" class="form-label">Movement Type</label>
+                            <input type="text" class="form-control" id="movementType" name="movement_type" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="text" class="form-control" id="quantity" name="quantity" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <i class="fas fa-plus"></i> Add Stock
+                        </button>
+                    </form>
+                    <!-- End Stocks Add Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Stocks Add Modal -->
+
 
     <!-- Stocks Table -->
     <div class="card mb-4">

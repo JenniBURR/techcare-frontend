@@ -48,11 +48,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 break;
                         }
 
-                        row.innerHTML = `${rowHTML}
-                                        <td>
-                                            <button class="btn btn-warning btn-sm" onclick="editItem('${tableBodyId}', ${item.id})">Edit</button>
-                                            <button class="btn btn-danger btn-sm" onclick="deleteItem('${tableBodyId}', ${item.id})">Delete</button>
-                                        </td>`;
+                        row.innerHTML = `${rowHTML}`;
                         tableBody.appendChild(row);
                     });
                 } else {
@@ -69,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function () {
     fetchTableData('http://127.0.0.1:8000/api/medicine', 'medicineTableBody', 5);
     fetchTableData('http://127.0.0.1:8000/api/supplier', 'supplierTableBody', 5);
     fetchTableData('http://127.0.0.1:8000/api/inventory', 'inventoryTableBody', 5);
-    fetchTableData('http://127.0.0.1:8000/api/stocks', 'stocksTableBody', 5);
+    fetchTableData('http://127.0.0.1:8000/api/stock', 'stocksTableBody', 5);
 
     // Add event listener to refresh the table when a search is submitted
     document.querySelectorAll('.search-form').forEach(form => {
@@ -126,73 +122,63 @@ document.addEventListener('DOMContentLoaded', function () {
         console.log(`Navigating ${direction} in table ${tableId}`);
     }
 
-    // Function to handle adding a new item to the table
-    function addNewItem(endpoint, newItem, tableBodyId) {
-        fetch(endpoint, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newItem),
+     // Function to handle adding a new item to the table
+function addNewItem(endpoint, newItem, tableBodyId) {
+    fetch(endpoint, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newItem),
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Assuming the response includes the newly added item
+            const tableBody = document.getElementById(tableBodyId);
+            const row = document.createElement('tr');
+            let rowHTML = '';
+
+            // Adjust the row creation based on the actual structure of your data
+            switch (tableBodyId) {
+                case 'medicineTableBody':
+                    rowHTML = `<td>${data.medicine_id}</td>
+                                <td>${data.medicine_name}</td>
+                                <td>${data.manufacturer}</td>
+                                <td>${data.expirydate}</td>
+                                <td>${data.quantity}</td>
+                                <td>${data.price}</td>`;
+                    break;
+                case 'supplierTableBody':
+                    rowHTML = `<td>${data.supplier_id}</td>
+                                <td>${data.supplier_name}</td>
+                                <td>${data.contact_info}</td>`;
+                    break;
+                case 'inventoryTableBody':
+                    rowHTML = `<td>${data.inventory_id}</td>
+                                <td>${data.medicine_id}</td>
+                                <td>${data.supplier_id}</td>
+                                <td>${data.quantity}</td>
+                                <td>${data.purchase_date}</td>`;
+                    break;
+                case 'stocksTableBody':
+                    rowHTML = `<td>${data.stock_id}</td>
+                                <td>${data.inventory_id}</td>
+                                <td>${data.branch_id}</td>
+                                <td>${data.movement_type}</td>
+                                <td>${data.quantity}</td>`;
+                    break;
+                default:
+                    break;
+            }
+
+            row.innerHTML = `${rowHTML}`;
+            tableBody.appendChild(row);
+
+            // Clear the form fields
+            document.getElementById(`add${tableBodyId}Form`).reset();
         })
-            .then(response => response.json())
-            .then(data => {
-                // Assuming the response includes the newly added item
-                const tableBody = document.getElementById(tableBodyId);
-                const row = document.createElement('tr');
-                let rowHTML = '';
-
-                // Adjust the row creation based on the actual structure of your data
-                switch (tableBodyId) {
-                    case 'medicineTableBody':
-                        rowHTML = `<td>${data.medicine_id}</td>
-                                    <td>${data.medicine_name}</td>
-                                    <td>${data.manufacturer}</td>
-                                    <td>${data.expirydate}</td>
-                                    <td>${data.quantity}</td>
-                                    <td>${data.price}</td>`;
-                        break;
-                    case 'supplierTableBody':
-                        rowHTML = `<td>${data.supplier_id}</td>
-                                    <td>${data.supplier_name}</td>
-                                    <td>${data.contact_info}</td>`;
-                        break;
-                    case 'inventoryTableBody':
-                        rowHTML = `<td>${data.inventory_id}</td>
-                                    <td>${data.medicine_id}</td>
-                                    <td>${data.supplier_id}</td>
-                                    <td>${data.quantity}</td>
-                                    <td>${data.purchase_date}</td>`;
-                        break;
-                    case 'stocksTableBody':
-                        rowHTML = `<td>${data.stock_id}</td>
-                                    <td>${data.inventory_id}</td>
-                                    <td>${data.branch_id}</td>
-                                    <td>${data.movement_type}</td>
-                                    <td>${data.quantity}</td>`;
-                        break;
-                    default:
-                        break;
-                }
-
-                row.innerHTML = `${rowHTML}
-                                <td>
-                                    <button class="btn btn-warning btn-sm" onclick="editItem('${tableBodyId}', ${data.id})">Edit</button>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteItem('${tableBodyId}', ${data.id})">Delete</button>
-                                </td>`;
-                tableBody.appendChild(row);
-
-                // Clear the form fields
-                document.getElementById(`add${tableBodyId}Form`).reset();
-            })
-            .catch(error => console.error('Error adding new item:', error));
-    }
-
-    // Function to handle editing an item
-    window.editItem = function (tableBodyId, itemId) {
-        // You can implement the edit functionality here, e.g., open a modal or redirect to an edit page
-        console.log(`Edit item with ID ${itemId} in table ${tableBodyId}`);
-    };
+        .catch(error => console.error('Error adding new item:', error));
+}
 
     // Function to handle deleting an item
     window.deleteItem = function (tableBodyId, itemId) {
@@ -253,6 +239,61 @@ document.addEventListener('DOMContentLoaded', function () {
             quantity: formData.get('quantity'),
         };
 
-        addNewItem('http://127.0.0.1:8000/api/stocks', newStocksItem, 'stocksTableBody');
+        addNewItem('http://127.0.0.1:8000/api/stock', newStocksItem, 'stocksTableBody');
     });
 });
+
+// Function to handle editing a medicine item
+window.editMedicine = function () {
+    const editMedicineId = document.getElementById('editMedicineId').value;
+    const editMedicineName = document.getElementById('editMedicineName').value;
+    const editManufacturer = document.getElementById('editManufacturer').value;
+    const editExpiryDate = document.getElementById('editExpiryDate').value;
+    const editQuantity = document.getElementById('editQuantity').value;
+    const editPrice = document.getElementById('editPrice').value;
+
+    const editedMedicine = {
+        medicine_name: editMedicineName,
+        manufacturer: editManufacturer,
+        expirydate: editExpiryDate,
+        quantity: editQuantity,
+        price: editPrice,
+    };
+
+    fetch(`http://127.0.0.1:8000/api/medicine/${editMedicineId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedMedicine),
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Update the table row with the edited data
+            updateTableRow('medicineTableBody', data);
+            // Close the edit modal
+            $('#editMedicineModal').modal('hide');
+        })
+        .catch(error => console.error('Error editing medicine:', error));
+};
+
+// Function to update the table row with edited data
+function updateTableRow(tableBodyId, editedItem) {
+    const tableBody = document.getElementById(tableBodyId);
+    const rows = tableBody.getElementsByTagName('tr');
+
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const itemId = cells[0].innerText; // Assuming the first column contains the ID
+
+        if (itemId == editedItem.medicine_id) {
+            // Update the corresponding row with the edited data
+            cells[1].innerText = editedItem.medicine_name;
+            cells[2].innerText = editedItem.manufacturer;
+            cells[3].innerText = editedItem.expirydate;
+            cells[4].innerText = editedItem.quantity;
+            cells[5].innerText = editedItem.price;
+            break;
+        }
+    }
+}
