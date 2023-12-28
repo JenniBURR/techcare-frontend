@@ -37,28 +37,29 @@ document.addEventListener('DOMContentLoaded', function () {
                                             <td>${item.quantity}</td>
                                             <td>${item.purchase_date}</td>`;
                                 break;
-                            case 'stocksTableBody':
-                                rowHTML = `<td>${item.stock_id}</td>
-                                            <td>${item.inventory_id}</td>
-                                            <td>${item.branch_id}</td>
-                                            <td>${item.movement_type}</td>
-                                            <td>${item.quantity}</td>`;
-                                break;
-                            default:
-                                break;
-                        }
-
-                        row.innerHTML = `${rowHTML}`;
+                                case 'stocksTableBody':
+                                    rowHTML = `<td>${item.stock_id}</td>
+                                                <td>${item.inventory_id}</td>
+                                                <td>${item.branch_id}</td>
+                                                <td>${item.movement_type}</td>
+                                                <td>${item.quantity}</td>`;
+                                    break;
+        
+                                default:
+                                    break;
+                            }
+        
+                            row.innerHTML = `${rowHTML}`;
+                            tableBody.appendChild(row);
+                        });
+                    } else {
+                        // Display a message when no data is available
+                        const row = document.createElement('tr');
+                        row.innerHTML = `<td colspan="5">No data found</td>`; // Assuming there are 5 columns in the stocks table
                         tableBody.appendChild(row);
-                    });
-                } else {
-                    // Display a message when no data is available
-                    const row = document.createElement('tr');
-                    row.innerHTML = `<td colspan="6">No data found</td>`;
-                    tableBody.appendChild(row);
-                }
-            })
-            .catch(error => console.error('Error fetching data:', error));
+                    }
+                })
+                .catch(error => console.error('Error fetching data:', error));
     }
 
     // Initial fetch when the page loads
@@ -297,3 +298,150 @@ function updateTableRow(tableBodyId, editedItem) {
         }
     }
 }
+
+// Function to handle editing a supplier item
+window.editSupplier = function (supplierId) {
+    // Fetch the supplier data using the supplierId
+    fetch(`http://127.0.0.1:8000/api/supplier/${supplierId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Populate the edit form fields with the existing data
+            document.getElementById('editSupplierId').value = data.supplier_id;
+            document.getElementById('editSupplierName').value = data.supplier_name;
+            document.getElementById('editContactInfo').value = data.contact_info;
+
+            // Show the edit modal
+            $('#editSupplierModal').modal('show');
+        })
+        .catch(error => console.error('Error fetching supplier data for edit:', error));
+};
+
+// Function to handle editing a supplier item
+window.editSupplier = function () {
+    const editSupplierId = document.getElementById('editSupplierId').value;
+    const editSupplierName = document.getElementById('editSupplierName').value;
+    const editContactInfo = document.getElementById('editContactInfo').value;
+
+    const editedSupplier = {
+        supplier_name: editSupplierName,
+        contact_info: editContactInfo,
+    };
+
+    fetch(`http://127.0.0.1:8000/api/supplier/${editSupplierId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedSupplier),
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Update the table row with the edited data
+            updateTableRow('supplierTableBody', data);
+            // Close the edit modal
+            $('#editSupplierModal').modal('hide');
+        })
+        .catch(error => console.error('Error editing supplier:', error));
+};
+
+// Function to handle editing an inventory item
+window.editInventory = function (inventoryId) {
+    // Fetch the inventory data using the inventoryId
+    fetch(`http://127.0.0.1:8000/api/inventory/${inventoryId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Populate the edit form fields with the existing data
+            document.getElementById('editInventoryId').value = data.inventory_id;
+            document.getElementById('editMedicineId').value = data.medicine_id;
+            document.getElementById('editSupplierId').value = data.supplier_id;
+            document.getElementById('editQuantityInventory').value = data.quantity;
+            document.getElementById('editPurchaseDate').value = data.purchase_date;
+
+            // Show the edit modal
+            $('#editInventoryModal').modal('show');
+        })
+        .catch(error => console.error('Error fetching inventory data for edit:', error));
+};
+
+// Function to handle editing an inventory item
+window.editInventory = function () {
+    const editInventoryId = document.getElementById('editInventoryId').value;
+    const editMedicineId = document.getElementById('editMedicineId').value;
+    const editSupplierId = document.getElementById('editSupplierId').value;
+    const editQuantityInventory = document.getElementById('editQuantityInventory').value;
+    const editPurchaseDate = document.getElementById('editPurchaseDate').value;
+
+    const editedInventory = {
+        medicine_id: editMedicineId,
+        supplier_id: editSupplierId,
+        quantity: editQuantityInventory,
+        purchase_date: editPurchaseDate,
+    };
+
+    fetch(`http://127.0.0.1:8000/api/inventory/${editInventoryId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedInventory),
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Update the table row with the edited data
+            updateTableRow('inventoryTableBody', data);
+            // Close the edit modal
+            $('#editInventoryModal').modal('hide');
+        })
+        .catch(error => console.error('Error editing inventory:', error));
+};
+
+// Function to handle editing a stocks item
+window.editStocks = function (stockId) {
+    // Fetch the stocks data using the stockId
+    fetch(`http://127.0.0.1:8000/api/stock/${stockId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Populate the edit form fields with the existing data
+            document.getElementById('editStockId').value = data.stock_id;
+            document.getElementById('editInventoryId').value = data.inventory_id;
+            document.getElementById('editBranchId').value = data.branch_id;
+            document.getElementById('editMovementType').value = data.movement_type;
+            document.getElementById('editQuantity').value = data.quantity;
+
+            // Show the edit modal
+            $('#editStockModal').modal('show');
+        })
+        .catch(error => console.error('Error fetching stocks data for edit:', error));
+};
+
+// Function to handle editing a stocks item
+window.editStock = function () {
+    const editStockId = document.getElementById('editStockId').value;
+    const editInventoryId = document.getElementById('editInventoryId').value;
+    const editBranchId = document.getElementById('editBranchId').value;
+    const editMovementType = document.getElementById('editMovementType').value;
+    const editQuantity = document.getElementById('editQuantity').value;
+
+    const editedStock = {
+        inventory_id: editInventoryId,
+        branch_id: editBranchId,
+        movement_type: editMovementType,
+        quantity: editQuantity,
+    };
+
+    fetch(`http://127.0.0.1:8000/api/stock/${editStockId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedStock),
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Update the table row with the edited data
+            updateTableRow('stocksTableBody', data);
+            // Close the edit modal
+            $('#editStockModal').modal('hide');
+        })
+        .catch(error => console.error('Error editing stocks:', error));
+};

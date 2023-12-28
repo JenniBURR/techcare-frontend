@@ -106,9 +106,14 @@
             </div>
             
     <!-- Medicine Add Button -->
-<button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addMedicineModal">
-    <i class="fas fa-plus"></i> Add Medicine
-</button>
+    <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addMedicineModal">
+        <i class="fas fa-plus"></i> Add Medicine
+    </button>
+
+    <!-- Medicine Edit Button -->
+    <button type="button" class="btn btn-warning btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#editMedicineModal">
+        <i class="fas fa-edit"></i> Edit Medicine
+    </button>
 
     <!-- Medicine Add Modal -->
     <div class="modal fade" id="addMedicineModal" tabindex="-1" aria-labelledby="addMedicineModalLabel" aria-hidden="true">
@@ -160,34 +165,35 @@
     <!-- End Medicine Add Modal -->
 
     <!-- Edit Medicine Modal -->
-<div class="modal fade" id="editMedicineModal" tabindex="-1" aria-labelledby="editMedicineModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editMedicineModalLabel">Edit Medicine</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Edit Medicine Form Fields Here -->
-                <input type="hidden" id="editMedicineId">
-                <label for="editMedicineName">Name:</label>
-                <input type="text" id="editMedicineName" class="form-control">
-                <label for="editManufacturer">Manufacturer:</label>
-                <input type="text" id="editManufacturer" class="form-control">
-                <label for="editExpiryDate">Expiry Date:</label>
-                <input type="text" id="editExpiryDate" class="form-control">
-                <label for="editQuantity">Quantity:</label>
-                <input type="text" id="editQuantity" class="form-control">
-                <label for="editPrice">Price:</label>
-                <input type="text" id="editPrice" class="form-control">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="editMedicine()">Save changes</button>
+    <div class="modal fade" id="editMedicineModal" tabindex="-1" aria-labelledby="editMedicineModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editMedicineModalLabel">Edit Medicine</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit Medicine Form Fields Here -->
+                    <label for="editMedicineID">ID:</label>
+                    <input type="text" id="editMedicineId" class="form-control">
+                    <label for="editMedicineName">Name:</label>
+                    <input type="text" id="editMedicineName" class="form-control">
+                    <label for="editManufacturer">Manufacturer:</label>
+                    <input type="text" id="editManufacturer" class="form-control">
+                    <label for="editExpiryDate">Expiry Date:</label>
+                    <input type="date" id="editExpiryDate" class="form-control">
+                    <label for="editQuantity">Quantity:</label>
+                    <input type="text" id="editQuantity" class="form-control">
+                    <label for="editPrice">Price:</label>
+                    <input type="text" id="editPrice" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="editMedicine()">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
     <!-- Medicine Table -->
     <div class="card mb-4">
@@ -232,6 +238,11 @@
         <i class="fas fa-plus"></i> Add Supplier
     </button>
 
+    <!-- Supplier Edit Button -->
+    <button type="button" class="btn btn-warning btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#editSupplierModal">
+        <i class="fas fa-edit"></i> Edit Supplier
+    </button>
+
     <!-- Supplier Add Modal -->
     <div class="modal fade" id="addSupplierModal" tabindex="-1" aria-labelledby="addSupplierModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -264,6 +275,31 @@
         </div>
     </div>
     <!-- End Supplier Add Modal -->
+
+    <!-- Edit Supplier Modal -->
+    <div class="modal fade" id="editSupplierModal" tabindex="-1" aria-labelledby="editSupplierModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editSupplierModalLabel">Edit Supplier</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit Supplier Form Fields Here -->
+                    <label for="editSupplierID">ID:</label>
+                    <input type="text" id="editSupplierId" class="form-control">
+                    <label for="editSupplierName">Name:</label>
+                    <input type="text" id="editSupplierName" class="form-control">
+                    <label for="editContactInfo">Contact Info:</label>
+                    <input type="text" id="editContactInfo" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="editSupplier()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Supplier Table -->
     <div class="card mb-4">
@@ -303,6 +339,11 @@
     <!-- Inventory Add Button -->
     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addInventoryModal">
         <i class="fas fa-plus"></i> Add Inventory
+    </button>
+
+    <!-- Inventory Edit Button -->
+    <button type="button" class="btn btn-warning btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#editInventoryModal">
+        <i class="fas fa-edit"></i> Edit Inventory
     </button>
 
     <!-- Inventory Add Modal -->
@@ -348,6 +389,35 @@
     </div>
     <!-- End Inventory Add Modal -->
 
+    <!-- Edit Inventory Modal -->
+    <div class="modal fade" id="editInventoryModal" tabindex="-1" aria-labelledby="editInventoryModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editInventoryModalLabel">Edit Inventory</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit Inventory Form Fields Here -->
+                    <label for="editInventoryId">Inventory ID:</label>
+                    <input type="text" id="editInventoryId" class="form-control">
+                    <label for="editMedicineId">Medicine ID:</label>
+                    <input type="text" id="editMedicineId" class="form-control">
+                    <label for="editSupplierId">Supplier ID:</label>
+                    <input type="text" id="editSupplierId" class="form-control">
+                    <label for="editQuantity">Quantity:</label>
+                    <input type="text" id="editQuantity" class="form-control">
+                    <label for="editPurchaseDate">Purchase Date:</label>
+                    <input type="text" id="editPurchaseDate" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="editInventory()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Inventory Table -->
     <div class="card mb-4">
@@ -389,6 +459,11 @@
     <!-- Stocks Add Button -->
     <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addStockModal">
         <i class="fas fa-plus"></i> Add Stock
+    </button>
+
+    <!-- Stocks Edit Button -->
+    <button type="button" class="btn btn-warning btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#editStocksModal">
+        <i class="fas fa-edit"></i> Edit Stocks
     </button>
 
     <!-- Stocks Add Modal -->
@@ -434,6 +509,34 @@
     </div>
     <!-- End Stocks Add Modal -->
 
+    <!-- Edit Stock Modal -->
+    <div class="modal fade" id="editStockModal" tabindex="-1" aria-labelledby="editStockModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editStockModalLabel">Edit Stock</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Edit Stock Form Fields Here -->
+                    <label for="editStockId">Stock ID:</label>
+                    <input type="text" id="editStockId" class="form-control">
+                    <label for="editInventoryId">Inventory ID:</label>
+                    <input type="text" id="editInventoryId" class="form-control">
+                    <label for="editBranchId">Branch ID:</label>
+                    <input type="text" id="editBranchId" class="form-control">
+                    <label for="editMovementType">Movement Type:</label>
+                    <input type="text" id="editMovementType" class="form-control">
+                    <label for="editQuantity">Quantity:</label>
+                    <input type="text" id="editQuantity" class="form-control">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="editStock()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Stocks Table -->
     <div class="card mb-4">
