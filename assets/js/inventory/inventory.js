@@ -181,11 +181,6 @@ function addNewItem(endpoint, newItem, tableBodyId) {
         .catch(error => console.error('Error adding new item:', error));
 }
 
-    // Function to handle deleting an item
-    window.deleteItem = function (tableBodyId, itemId) {
-        // You can implement the delete functionality here, e.g., show a confirmation modal
-        console.log(`Delete item with ID ${itemId} in table ${tableBodyId}`);
-    }
 
     // Event listeners for adding new items
     document.getElementById('addMedicineForm').addEventListener('submit', function (event) {
@@ -300,23 +295,6 @@ function updateTableRow(tableBodyId, editedItem) {
 }
 
 // Function to handle editing a supplier item
-window.editSupplier = function (supplierId) {
-    // Fetch the supplier data using the supplierId
-    fetch(`http://127.0.0.1:8000/api/supplier/${supplierId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Populate the edit form fields with the existing data
-            document.getElementById('editSupplierId').value = data.supplier_id;
-            document.getElementById('editSupplierName').value = data.supplier_name;
-            document.getElementById('editContactInfo').value = data.contact_info;
-
-            // Show the edit modal
-            $('#editSupplierModal').modal('show');
-        })
-        .catch(error => console.error('Error fetching supplier data for edit:', error));
-};
-
-// Function to handle editing a supplier item
 window.editSupplier = function () {
     const editSupplierId = document.getElementById('editSupplierId').value;
     const editSupplierName = document.getElementById('editSupplierName').value;
@@ -334,47 +312,50 @@ window.editSupplier = function () {
         },
         body: JSON.stringify(editedSupplier),
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             // Update the table row with the edited data
-            updateTableRow('supplierTableBody', data);
+            updateSupplierTableRow('supplierTableBody', data);
             // Close the edit modal
             $('#editSupplierModal').modal('hide');
         })
         .catch(error => console.error('Error editing supplier:', error));
 };
 
-// Function to handle editing an inventory item
-window.editInventory = function (inventoryId) {
-    // Fetch the inventory data using the inventoryId
-    fetch(`http://127.0.0.1:8000/api/inventory/${inventoryId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Populate the edit form fields with the existing data
-            document.getElementById('editInventoryId').value = data.inventory_id;
-            document.getElementById('editMedicineId').value = data.medicine_id;
-            document.getElementById('editSupplierId').value = data.supplier_id;
-            document.getElementById('editQuantityInventory').value = data.quantity;
-            document.getElementById('editPurchaseDate').value = data.purchase_date;
+// Function to update the table row with edited supplier data
+function updateSupplierTableRow(tableBodyId, editedItem) {
+    const tableBody = document.getElementById(tableBodyId);
+    const rows = tableBody.getElementsByTagName('tr');
 
-            // Show the edit modal
-            $('#editInventoryModal').modal('show');
-        })
-        .catch(error => console.error('Error fetching inventory data for edit:', error));
-};
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const itemId = cells[0].innerText; // Assuming the first column contains the ID
 
-// Function to handle editing an inventory item
-window.editInventory = function () {
+        if (itemId == editedItem.supplier_id) {
+            // Update the corresponding row with the edited data
+            cells[1].innerText = editedItem.supplier_name;
+            cells[2].innerText = editedItem.contact_info;
+            break;
+        }
+    }
+}
+
+window.editInventoryItem = function () {
     const editInventoryId = document.getElementById('editInventoryId').value;
-    const editMedicineId = document.getElementById('editMedicineId').value;
     const editSupplierId = document.getElementById('editSupplierId').value;
-    const editQuantityInventory = document.getElementById('editQuantityInventory').value;
+    const editMedicineId = document.getElementById('editMedicineId').value;
+    const editQuantity = document.getElementById('editQuantity').value;
     const editPurchaseDate = document.getElementById('editPurchaseDate').value;
 
     const editedInventory = {
-        medicine_id: editMedicineId,
         supplier_id: editSupplierId,
-        quantity: editQuantityInventory,
+        medicine_id: editMedicineId,
+        quantity: editQuantity,
         purchase_date: editPurchaseDate,
     };
 
@@ -385,37 +366,42 @@ window.editInventory = function () {
         },
         body: JSON.stringify(editedInventory),
     })
-        .then(response => response.json())
-        .then(data => {
-            // Update the table row with the edited data
-            updateTableRow('inventoryTableBody', data);
-            // Close the edit modal
-            $('#editInventoryModal').modal('hide');
-        })
-        .catch(error => console.error('Error editing inventory:', error));
+    .then(response => {
+        console.log('Response status:', response.status);
+        return response.json();
+    })
+    .then(data => {
+        console.log('Response from server:', data);
+        // Update the table row with the edited data
+        updateInventoryTableRow('inventoryTableBody', data);
+        // Close the edit modal
+        $('#editInventoryModal').modal('hide');
+    })
+    .catch(error => console.error('Error editing inventory:', error));
 };
 
-// Function to handle editing a stocks item
-window.editStocks = function (stockId) {
-    // Fetch the stocks data using the stockId
-    fetch(`http://127.0.0.1:8000/api/stock/${stockId}`)
-        .then(response => response.json())
-        .then(data => {
-            // Populate the edit form fields with the existing data
-            document.getElementById('editStockId').value = data.stock_id;
-            document.getElementById('editInventoryId').value = data.inventory_id;
-            document.getElementById('editBranchId').value = data.branch_id;
-            document.getElementById('editMovementType').value = data.movement_type;
-            document.getElementById('editQuantity').value = data.quantity;
+// Function to update the table row with edited inventory data
+function updateInventoryTableRow(tableBodyId, editedItem) {
+    const tableBody = document.getElementById(tableBodyId);
+    const rows = tableBody.getElementsByTagName('tr');
 
-            // Show the edit modal
-            $('#editStockModal').modal('show');
-        })
-        .catch(error => console.error('Error fetching stocks data for edit:', error));
-};
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const itemId = cells[0].innerText; // Assuming the first column contains the ID
 
-// Function to handle editing a stocks item
-window.editStock = function () {
+        if (itemId == editedItem.inventory_id) {
+            // Update the corresponding row with the edited data
+            cells[1].innerText = editedItem.supplier_id;
+            cells[2].innerText = editedItem.medicine_id;
+            cells[3].innerText = editedItem.quantity;
+            cells[4].innerText = editedItem.purchase_date;
+            break;
+        }
+    }
+}
+
+// Function to handle editing a stock item
+window.editStockItem = function () {
     const editStockId = document.getElementById('editStockId').value;
     const editInventoryId = document.getElementById('editInventoryId').value;
     const editBranchId = document.getElementById('editBranchId').value;
@@ -436,12 +422,281 @@ window.editStock = function () {
         },
         body: JSON.stringify(editedStock),
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             // Update the table row with the edited data
-            updateTableRow('stocksTableBody', data);
+            updateStockTableRow('stocksTableBody', data);
             // Close the edit modal
             $('#editStockModal').modal('hide');
         })
-        .catch(error => console.error('Error editing stocks:', error));
+        .catch(error => console.error('Error editing stock:', error));
 };
+
+// Function to update the table row with edited stock data
+function updateStockTableRow(tableBodyId, editedItem) {
+    const tableBody = document.getElementById(tableBodyId);
+    const rows = tableBody.getElementsByTagName('tr');
+
+    for (let i = 0; i < rows.length; i++) {
+        const cells = rows[i].getElementsByTagName('td');
+        const itemId = cells[0].innerText; // Assuming the first column contains the ID
+
+        if (itemId == editedItem.stock_id) {
+            // Update the corresponding row with the edited data
+            cells[1].innerText = editedItem.inventory_id;
+            cells[2].innerText = editedItem.branch_id;
+            cells[3].innerText = editedItem.movement_type;
+            cells[4].innerText = editedItem.quantity;
+            break;
+        }
+    }
+}
+
+let selectedMedicineRow; // Variable to store the selected medicine row
+
+    // Event listener to store the selected row when the delete modal is shown
+    $('#deleteMedicineModal').on('show.bs.modal', function (event) {
+        // Get the button that triggered the modal
+        const button = $(event.relatedTarget);
+        // Get the row associated with the button
+        selectedMedicineRow = button.closest('tr');
+    });
+
+    // Function to prompt for medicine ID before deleting
+    function promptDeleteMedicine() {
+        // Clear any previous input
+        document.getElementById('medicineIdToDelete').value = '';
+        // Show the delete modal
+        $('#deleteMedicineModal').modal('show');
+    }
+
+    // Function to delete a medicine item by ID
+    function deleteMedicineById() {
+        // Get the medicine ID to delete
+        const medicineId = document.getElementById('medicineIdToDelete').value;
+
+        // Validate that the ID is not empty
+        if (!medicineId.trim()) {
+            alert('Please enter a valid Medicine ID.');
+            return;
+        }
+
+        // Call the delete function with the medicine ID
+        deleteMedicine(medicineId);
+    }
+
+    // Function to delete a medicine item
+    function deleteMedicine(medicineId) {
+        // Simulate the backend interaction (replace with actual backend logic)
+        fetch(`http://127.0.0.1:8000/api/medicine/${medicineId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                // If the request is successful, update the table or perform other actions
+                console.log(`Successfully deleted medicine with ID ${medicineId}`);
+                // Remove the selected row from the table
+                selectedMedicineRow.remove();
+            })
+            .catch(error => {
+                console.error('Error deleting medicine:', error);
+                // TODO: Handle the error appropriately (e.g., show an error message)
+            })
+            .finally(() => {
+                // Close the delete modal regardless of success or failure
+                $('#deleteMedicineModal').modal('hide');
+            });
+    }
+
+    let selectedSupplierRow; // Variable to store the selected supplier row
+
+// Event listener to store the selected row when the delete modal is shown
+$('#deleteSupplierModal').on('show.bs.modal', function (event) {
+    // Get the button that triggered the modal
+    const button = $(event.relatedTarget);
+    // Get the row associated with the button
+    selectedSupplierRow = button.closest('tr');
+});
+
+// Function to prompt for supplier ID before deleting
+function promptDeleteSupplier() {
+    // Clear any previous input
+    document.getElementById('supplierIdToDelete').value = '';
+    // Show the delete modal
+    $('#deleteSupplierModal').modal('show');
+}
+
+// Function to delete a supplier item by ID
+function deleteSupplierById() {
+    // Get the supplier ID to delete
+    const supplierId = document.getElementById('supplierIdToDelete').value;
+
+    // Validate that the ID is not empty
+    if (!supplierId.trim()) {
+        alert('Please enter a valid Supplier ID.');
+        return;
+    }
+
+    // Call the delete function with the supplier ID
+    deleteSupplier(supplierId);
+}
+
+// Function to delete a supplier item
+function deleteSupplier(supplierId) {
+    // Simulate the backend interaction (replace with actual backend logic)
+    fetch(`http://127.0.0.1:8000/api/supplier/${supplierId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            // If the request is successful, update the table or perform other actions
+            console.log(`Successfully deleted supplier with ID ${supplierId}`);
+            // Remove the selected row from the table
+            selectedSupplierRow.remove();
+        })
+        .catch(error => {
+            console.error('Error deleting supplier:', error);
+            // TODO: Handle the error appropriately (e.g., show an error message)
+        })
+        .finally(() => {
+            // Close the delete modal regardless of success or failure
+            $('#deleteSupplierModal').modal('hide');
+        });
+}
+
+let selectedInventoryRow; // Variable to store the selected inventory row
+
+// Event listener to store the selected row when the delete modal is shown
+$('#deleteInventoryModal').on('show.bs.modal', function (event) {
+    // Get the button that triggered the modal
+    const button = $(event.relatedTarget);
+    // Get the row associated with the button
+    selectedInventoryRow = button.closest('tr');
+});
+
+// Function to prompt for inventory ID before deleting
+function promptDeleteInventoryItem() {
+    // Clear any previous input
+    document.getElementById('inventoryIdToDelete').value = '';
+    // Show the delete modal
+    $('#deleteInventoryModal').modal('show');
+}
+
+// Function to delete an inventory item by ID
+function deleteInventoryItemById() {
+    // Get the inventory ID to delete
+    const inventoryId = document.getElementById('inventoryIdToDelete').value;
+
+    // Validate that the ID is not empty
+    if (!inventoryId.trim()) {
+        alert('Please enter a valid Inventory ID.');
+        return;
+    }
+
+    // Call the delete function with the inventory ID
+    deleteInventoryItem(inventoryId);
+}
+
+// Function to delete an inventory item
+function deleteInventoryItem(inventoryId) {
+    // Simulate the backend interaction (replace with actual backend logic)
+    fetch(`http://127.0.0.1:8000/api/inventory/${inventoryId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            // If the request is successful, update the table or perform other actions
+            console.log(`Successfully deleted inventory with ID ${inventoryId}`);
+            // Remove the selected row from the table
+            selectedInventoryRow.remove();
+        })
+        .catch(error => {
+            console.error('Error deleting inventory:', error);
+            // TODO: Handle the error appropriately (e.g., show an error message)
+        })
+        .finally(() => {
+            // Close the delete modal regardless of success or failure
+            $('#deleteInventoryModal').modal('hide');
+        });
+}
+
+let selectedStockRow; // Variable to store the selected stock row
+
+// Event listener to store the selected row when the delete modal is shown
+$('#deleteStockModal').on('show.bs.modal', function (event) {
+    // Get the button that triggered the modal
+    const button = $(event.relatedTarget);
+    // Get the row associated with the button
+    selectedStockRow = button.closest('tr');
+});
+
+// Function to prompt for stock ID before deleting
+function promptDeleteStockItem() {
+    // Clear any previous input
+    document.getElementById('stockIdToDelete').value = '';
+    // Show the delete modal
+    $('#deleteStockModal').modal('show');
+}
+
+// Function to delete a stock item by ID
+function deleteStockById() {
+    // Get the stock ID to delete
+    const stockId = document.getElementById('stockIdToDelete').value;
+
+    // Validate that the ID is not empty
+    if (!stockId.trim()) {
+        alert('Please enter a valid Stock ID.');
+        return;
+    }
+
+    // Call the delete function with the stock ID
+    deleteStockItem(stockId);
+}
+
+// Function to delete a stock item
+function deleteStockItem(stockId) {
+    // Simulate the backend interaction (replace with actual backend logic)
+    fetch(`http://127.0.0.1:8000/api/stock/${stockId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            // If the request is successful, update the table or perform other actions
+            console.log(`Successfully deleted stock with ID ${stockId}`);
+            // Remove the selected row from the table
+            selectedStockRow.remove();
+        })
+        .catch(error => {
+            console.error('Error deleting stock:', error);
+            // TODO: Handle the error appropriately (e.g., show an error message)
+        })
+        .finally(() => {
+            // Close the delete modal regardless of success or failure
+            $('#deleteStockModal').modal('hide');
+        });
+}
