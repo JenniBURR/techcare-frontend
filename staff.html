@@ -106,98 +106,99 @@
             </div>
             
     <!-- Manager Table -->
-<div class="card mb-4">
-    <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        Manager Details
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <form method="post">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search Manager" name="searchManager">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                </div>
-            </form>
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>ManagerID</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Address</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data will be dynamically loaded here using JavaScript -->
-                </tbody>
-            </table>
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Manager Details
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <form class="search-form" data-endpoint="http://127.0.0.1:8000/api/manager" data-table-body="managerTableBody" data-limit="5" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search Manager" name="searchManager">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ManagerID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody id="managerTableBody">
+                        <!-- Data will be dynamically loaded here using JavaScript -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 
-<!-- Staff Table -->
-<div class="card mb-4">
-    <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        Staff Details
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <form method="post">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search Staff" name="searchStaff">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                </div>
-            </form>
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>StaffID</th>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Address</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data will be dynamically loaded here using JavaScript -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
-<!-- Branch Table -->
-<div class="card mb-4">
-    <div class="card-header">
-        <i class="fas fa-table me-1"></i>
-        Branch Details
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <form method="post">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Search Branch" name="searchBranch">
-                    <button class="btn btn-outline-secondary" type="submit">Search</button>
-                </div>
-            </form>
-            <table class="table table-bordered" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th>BranchID</th>
-                        <th>StaffID</th>
-                        <th>ManagerID</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data will be dynamically loaded here using JavaScript -->
-                </tbody>
-            </table>
+    <!-- Staff Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Staff Details
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <form class="search-form" data-endpoint="http://127.0.0.1:8000/api/staff" data-table-body="staffTableBody" data-limit="5" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search Staff" name="searchStaff">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>StaffID</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staffTableBody">
+                        <!-- Data will be dynamically loaded here using JavaScript -->
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+
+    <!-- Branch Table -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Branch Details
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <form class="search-form" data-endpoint="http://127.0.0.1:8000/api/branch" data-table-body="branchTableBody" data-limit="5" method="post">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Search Branch" name="searchBranch">
+                        <button class="btn btn-outline-secondary" type="submit">Search</button>
+                    </div>
+                </form>
+                <table class="table table-bordered" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>BranchID</th>
+                            <th>StaffID</th>
+                            <th>ManagerID</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                        </tr>
+                    </thead>
+                    <tbody id="branchTableBody">
+                        <!-- Data will be dynamically loaded here using JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 
         </main>
         <footer class="bg-light mt-auto py-4">
@@ -211,6 +212,7 @@
         </footer>
     </div>
 
+    <script src="assets/js/staff/staff.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
