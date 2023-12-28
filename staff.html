@@ -105,103 +105,99 @@
                 </ol>
             </div>
             
-    <!-- Medicine Table -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Medicine Details
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <form method="post">
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Search Medicine" name="searchMedicine">
-                        <button class="btn btn-outline-secondary" type="submit">Search</button>
-                    </div>
-                </form>
-                <table class="table table-bordered" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>MedicineID</th>
-                            <th>Name</th>
-                            <th>Manufacturer</th>
-                            <th>ExpiryDate</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data will be dynamically loaded here using JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+    <!-- Manager Table -->
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Manager Details
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <form method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search Manager" name="searchManager">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </form>
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>ManagerID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be dynamically loaded here using JavaScript -->
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 
-
-            <!-- Supplier Table -->
-            <div class="card mb-4">
-                <div class="card-header">
-                    <i class="fas fa-table me-1"></i>
-                    Supplier Details
+<!-- Staff Table -->
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Staff Details
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <form method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search Staff" name="searchStaff">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <form method="post">
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="Search Supplier" name="searchSupplier">
-                                <button class="btn btn-outline-secondary" type="submit">Search</button>
-                            </div>
-                        </form>
-                        <table class="table table-bordered" width="100%" cellspacing="0">
-                            <thead>
-                                <tr>
-                                    <th>SupplierID</th>
-                                    <th>Name</th>
-                                    <th>ContactInfo</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Data will be dynamically loaded here using JavaScript -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-    <!-- Inventory Table -->
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Inventory Details
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <form method="post" id="searchForm">
-                    <!-- @csrf -->
-                    <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="Search Inventory" name="searchInventory" id="searchInventory">
-                        <button class="btn btn-outline-secondary" type="button" onclick="searchInventory()">Search</button>
-                    </div>
-                </form>
-                <table class="table table-bordered" id="inventoryTable" width="100%" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th>InventoryID</th>
-                            <th>MedicineID</th>
-                            <th>SupplierID</th>
-                            <th>PurchaseDate</th>
-                            <th>Quantity</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data will be dynamically loaded here using JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+            </form>
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>StaffID</th>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be dynamically loaded here using JavaScript -->
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+
+<!-- Branch Table -->
+<div class="card mb-4">
+    <div class="card-header">
+        <i class="fas fa-table me-1"></i>
+        Branch Details
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <form method="post">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Search Branch" name="searchBranch">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </form>
+            <table class="table table-bordered" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>BranchID</th>
+                        <th>StaffID</th>
+                        <th>ManagerID</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be dynamically loaded here using JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
         </main>
         <footer class="bg-light mt-auto py-4">

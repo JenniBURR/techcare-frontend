@@ -194,7 +194,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   // Function to fetch and display inventory
   function fetchStock() {
-      fetch('http://127.0.0.1:8000/api/inventory')
+      fetch('http://127.0.0.1:8000/api/stock')
           .then(response => response.json())
           .then(data => {
               const stockTableBody = document.getElementById('stockTableBody');
